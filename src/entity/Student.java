@@ -27,6 +27,14 @@ public class Student {
         this.courses = new HashSet<>();
     }
 
+    public Student(String studentID, String name, int semester, Set<String> courses) {
+        this.studentID = studentID;
+        this.name = name;
+        this.semester = semester;
+        this.courses = courses;
+    }
+    
+
     public String getStudentID() {
         return studentID;
     }

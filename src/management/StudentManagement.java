@@ -6,8 +6,10 @@ package management;
 
 import entity.Student;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  *
@@ -56,24 +58,24 @@ public class StudentManagement {
     //Create student
     public void createStudent() {
 
-        String studentID = null;
-        String studentName = null;
-        String StudentSemester = null;
         String answer = "Y";
 
         System.out.println("----CREATE STUDENT----");
         do {
+            String studentID = null;
+            String studentName = null;
+            String StudentSemester = null;
+            String addCourse = null;
+            Set<String> courses = new HashSet<>();
             //loop for check student id
             while (true) {
                 System.out.print("Enter student ID: ");
                 studentID = sc.nextLine();
                 if (!check.isValidStudentID(studentID)) {
                     System.out.println("Student ID must be in the form HExxxx or HSxxxx. For example: HE1234");
-                }
-                else if(studentList.containsKey(studentID)){
+                } else if (studentList.containsKey(studentID)) {
                     System.out.println("This ID already exists! ");
-                }
-                else {
+                } else {
                     break;
                 }
             }
@@ -87,6 +89,7 @@ public class StudentManagement {
                     System.out.println("Student name is not valid.");
                 }
             }
+            //loop for check add course
             while (true) {
                 System.out.print("Enter semester: ");
                 StudentSemester = sc.nextLine();
@@ -96,8 +99,42 @@ public class StudentManagement {
                     System.out.println("Student name is interger from 0 to 9.");
                 }
             }
-            System.out.println(studentID +"   "+ studentName + "   " + StudentSemester);
-            Student std = new Student(studentID, studentName, Integer.parseInt(StudentSemester));
+            //loop for check input add course:
+            while (true) {
+                System.out.println("(1)Java    (2).NET    (3)C/C++    (4)No course");
+                System.out.print("Enter number ID of course of this student: ");
+                addCourse = sc.nextLine();
+                if (check.isValidAddCourse(addCourse)) {
+                    break;
+                } else {
+                    System.out.println("Student name is interger from 0 to 9.");
+                }
+            }
+            int addCourseID = Integer.parseInt(addCourse);
+            if (addCourseID == 1) {
+                courses.add("Java");
+            } else if (addCourseID == 2) {
+                courses.add(".NET");
+            } else if (addCourseID == 3) {
+                courses.add("C/C++");
+            } else if (addCourseID == 4) {
+            } else if (addCourseID == 12 || addCourseID == 21) {
+                courses.add("Java");
+                courses.add(".NET");
+            } else if (addCourseID == 13 || addCourseID == 31) {
+                courses.add("Java");
+                courses.add("C/C++");
+            } else if (addCourseID == 23 || addCourseID == 32) {
+                courses.add(".NET");
+                courses.add("C/C++");
+            } else {
+                courses.add("Java");
+                courses.add(".NET");
+                courses.add("C/C++");
+            }
+
+            System.out.println(studentID + "   " + studentName + "   " + StudentSemester + "   " +courses.toString());
+            Student std = new Student(studentID, studentName, Integer.parseInt(StudentSemester), courses);
             studentList.put(studentID, std);
             if (studentList.size() > 10) {
 
