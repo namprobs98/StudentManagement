@@ -25,8 +25,10 @@ public class StudentManagementApp {
                 case 1:
                     sm.createStudent();
                     break;
+                case 2:
+                    sm.findAndSortStudent();
             }
         }
-        while (option == 5);
+        while (option != 5);
     }
 }

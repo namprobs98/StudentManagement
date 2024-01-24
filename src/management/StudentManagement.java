@@ -5,8 +5,11 @@
 package management;
 
 import entity.Student;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -57,6 +60,17 @@ public class StudentManagement {
 
     //Create student
     public void createStudent() {
+        studentList.put("HE0001", new Student("HE0001", "Nam", 0));
+        studentList.put("HE0002", new Student("HE0002", "My", 3));
+        studentList.put("HE0003", new Student("HE0003", "Linh", 1));
+        studentList.put("HE0004", new Student("HE0004", "Nam", 2));
+        studentList.put("HE0005", new Student("HE0005", "Hanh", 2));
+        studentList.put("HE0006", new Student("HE0006", "Hoang", 4));
+        studentList.put("HE0007", new Student("HE0007", "Dung", 0));
+        studentList.put("HE0008", new Student("HE0008", "Mai", 3));
+        studentList.put("HE0009", new Student("HE0009", "Cuc", 1));
+        studentList.put("HE0010", new Student("HE0010", "Thien", 2));
+
 
         String answer = "Y";
 
@@ -133,7 +147,7 @@ public class StudentManagement {
                 courses.add("C/C++");
             }
 
-            System.out.println(studentID + "   " + studentName + "   " + StudentSemester + "   " +courses.toString());
+            System.out.println(studentID + "   " + studentName + "   " + StudentSemester + "   " + courses.toString());
             Student std = new Student(studentID, studentName, Integer.parseInt(StudentSemester), courses);
             studentList.put(studentID, std);
             if (studentList.size() > 10) {
@@ -154,4 +168,38 @@ public class StudentManagement {
         } while (true);
     }
 
+    //Find and sort
+    public void findAndSortStudent() {
+        Map<String, Student> result = new HashMap<>();
+        String searchKeyword;
+        System.out.println("Enter keyword of name of student who you want to search: ");
+        searchKeyword = sc.nextLine();
+        for (Map.Entry<String, Student> entry : studentList.entrySet()) {
+            String studentName = entry.getValue().getStudentName().toLowerCase();
+            if (containsOrdered(studentName, searchKeyword.toLowerCase())) {
+                result.put(entry.getKey(), entry.getValue());
+            }
+        }
+        
+        List<Student> sortedResult = new ArrayList<>(result.values());
+        // Sắp xếp danh sách theo tên
+        sortedResult.sort(Comparator.comparing(student -> student.getStudentName()));
+         for (Student student : sortedResult) {
+            System.out.println("Student ID: " + student.getStudentID() +
+                               ", Student Name: " + student.getStudentName() +
+                               ", Student Semester: " + student.getSemester());
+        }
+    }
+
+    //checks whether a name string contains all the characters of the search string and in the correct order.
+    public static boolean containsOrdered(String name, String search) {
+        int index = -1;
+        for (char c : search.toCharArray()) {
+            index = name.indexOf(c, index + 1);
+            if (index == -1) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

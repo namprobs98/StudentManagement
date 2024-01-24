@@ -14,7 +14,7 @@ import management.Validation;
  */
 public class Student {
     private String studentID;
-    private String name;
+    private String studentName;
     private int semester;
     private Set<String> courses;
     
@@ -22,18 +22,17 @@ public class Student {
 
     public Student(String studentID, String name, int semester) {
         this.studentID = studentID;
-        this.name = name;
+        this.studentName = name;
         this.semester = semester;
         this.courses = new HashSet<>();
     }
 
     public Student(String studentID, String name, int semester, Set<String> courses) {
         this.studentID = studentID;
-        this.name = name;
+        this.studentName = name;
         this.semester = semester;
         this.courses = courses;
     }
-    
 
     public String getStudentID() {
         return studentID;
@@ -43,12 +42,12 @@ public class Student {
         this.studentID = studentID;
     }
 
-    public String getName() {
-        return name;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
     public int getSemester() {
@@ -75,14 +74,11 @@ public class Student {
         this.check = check;
     }
 
-    
-
-    //Add course to list course of student
-
     @Override
     public String toString() {
-        return "Student{" + "studentID=" + studentID + ", name=" + name + ", semester=" + semester + ", courses=" + courses + ", check=" + check + '}';
+        return "Student{" + "studentID=" + studentID + ", studentName=" + studentName + ", semester=" + semester + ", courses=" + courses + ", check=" + check + '}';
     }
+
     
     
 }
